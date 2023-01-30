@@ -1,3 +1,4 @@
 {
+    "watch" : ".ts,.js,.json",
     "exec" : "npx ts-node ./src/app.ts"
 }
