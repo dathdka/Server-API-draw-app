@@ -11,20 +11,25 @@ app.use(cors({origin: true}))
 const server = http.createServer(app);
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    database: 'crawl'
+    host: '127.0.0.1',
+    database: 'crawl',
+    user: `${process.env.MYSQL_USERNAME}`,
+    password : `${process.env.MYSQL_PASSWORD}`
 })
+try{
+    connection.connect(() : void=>{
+        server.listen(1245, () : void =>{
+            connection.query(`select * from test`,(err : Error,result : Array<object> ) =>{
+                console.log(result)
+            })
+            console.log('server listening port 1245')
+            return ;
+        })
+    });
 
-connection.connect(() : void=>{
-    server.listen(1245, () : void =>{
-        connection.query(`create table test ( 
-            id      int
-            name    string 
-            )`)
-        console.log('server listening port 1246')
-        return ;
-    })
-});
+}catch(err){
+    console.log(err)
+}
 // mongoose.set('strictQuery',true)
 // mongoose.connect(`${process.env.MONGO_LOCAL}`).then(()=>{
 // })
