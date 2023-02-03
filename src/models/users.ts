@@ -4,25 +4,38 @@ import { Table, Column, DataType, Model, Length } from "sequelize-typescript";
   timestamps: false,
   tableName: "users",
 })
-class users extends Model<users> {
+export class users extends Model {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING,
     allowNull: false,
     primaryKey: true,
+    unique : true
   })
   id!: string;
+
+  @Length({min : 6, max :35})
+  @Column({
+    type: DataType.STRING,
+    allowNull : false,
+    validate: {
+      notEmpty : true,
+      isEmail : true,
+    },
+    unique : true
+  })
+  email!: string
 
   @Length({min: 6,max : 20})
   @Column({
     type: DataType.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
+      notEmpty: true
     },
-    unique: true,
   })
   username!: string;
 
+  @Length({min : 6,max:100})
   @Column({
     type: DataType.STRING,
     allowNull: false,

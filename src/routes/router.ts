@@ -1,7 +1,8 @@
 import { Router } from "express";
-const {getAllItem} = require("../controllers/getAllItem")
+import * as authController from '../controllers/auth/authController';
 const router = Router();
  
-router.get('/items',getAllItem)  
+router.post('/register',authController.register);
+router.post('/login', authController.login);
 
 export default router

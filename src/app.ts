@@ -3,7 +3,9 @@ import  express  from "express"
 import http from "http"
 import dbconfig from './dbConfig/config'
 import router from './routes/router'
+import redis from 'redis'
 import 'dotenv/config'
+
 
 var app = express();
 app.use(express.json())

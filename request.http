@@ -1,1 +1,17 @@
-GET  http://localhost:1245/home/items
+POST   http://localhost:1245/home/register
+Content-Type : application/json
+
+{
+    "email" : "dat@gmail.com",
+    "username" : "dathdka",
+    "password" : "1234dat6789"
+}
+
+###
+POST  http://localhost:1245/home/login
+Content-Type: application/json
+
+{
+    "email" : "dat@gmail.com",
+    "password" : "1234dat6789"
+}
