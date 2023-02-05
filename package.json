@@ -37,6 +37,7 @@
     "redis": "^4.6.4",
     "sequelize": "^6.28.0",
     "sequelize-typescript": "^2.1.5",
+    "socket.io": "^4.5.4",
     "uuid": "^9.0.0"
   }
 }

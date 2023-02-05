@@ -3,25 +3,26 @@ import express from "express";
 import http from "http";
 import dbconfig from "./dbConfig/config";
 import router from "./routes/router";
-import { redisClient } from "./initRedis";
+import { redisClient } from "./redis";
+import { socket } from "./socket";
 import "dotenv/config";
 
 var app = express();
 
-
 app.use(express.json());
 app.use(cors({ origin: true }));
-app.use("/home", router);
+app.use(router);
 const server = http.createServer(app);
 (async() => await new redisClient().getClient())()
 
 dbconfig
   .sync()
-  .then(() => {
+  .then(async() => {
     console.log("DB synced successfully");
     server.listen(`${process.env.EXPRESS_PORT}`, (): void => {
       console.log(`server listening port ${process.env.EXPRESS_PORT}`);
     });
+    new socket(server);
   })
   .catch((err: Error) => {
     throw err;

@@ -1,4 +1,5 @@
-import { Table, Column, DataType, Model, Length } from "sequelize-typescript";
+import { Table, Column, DataType, Model, Length, HasMany } from "sequelize-typescript";
+import { draws } from "./draws";
 
 @Table({
   timestamps: false,
@@ -41,4 +42,7 @@ export class users extends Model {
     allowNull: false,
   })
   password!: string;
+
+  @HasMany(()=>draws)
+  collection! : draws[]
 }

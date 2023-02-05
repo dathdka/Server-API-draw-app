@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript'
 import  {users} from '../models/users'
+import { draws } from '../models/draws'
 import 'dotenv/config'
 const connection = new Sequelize ({
     dialect : 'mysql',
@@ -8,7 +9,7 @@ const connection = new Sequelize ({
     password : `${process.env.MYSQL_PASSWORD}`,
     database : 'crawl',
     logging : false,
-    models: [users]
+    models: [users, draws]
 })
 
 export default connection
