@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { users } from "../../models/users";
 import { v4 } from "uuid";
 import bcrypt from "bcrypt";
-import { redisClient } from "../../redis";
 import "dotenv/config";
 
 export const register: RequestHandler = async (req: Request, res: Response) => {
@@ -26,11 +25,8 @@ export const register: RequestHandler = async (req: Request, res: Response) => {
           `${process.env.SECRET_JWT}`,
           { expiresIn: "365d" }
         );
-          //store user token to redis
-        const client = await new redisClient().getClient();
-        await client.setValue(storedUser.id, token);
 
-        return res.status(201).json({token : token, username : storedUser.username});
+        return res.status(201).json({id: storedUser.id,token : token, username : storedUser.username});
     }).catch((err: Error) => {
       console.error(err);
       return res.status(400).send("something went wrong");

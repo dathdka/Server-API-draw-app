@@ -28,3 +28,5 @@ export class redisClient {
     return await redisClient.client.get(key);
   }
 }
+
+export type RedisClientType = redisClient
