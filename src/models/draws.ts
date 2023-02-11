@@ -1,5 +1,5 @@
-import { Table, Column, Length, Model, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
-import { users } from "./users";
+import { Table, Column, Model, DataType, HasMany } from "sequelize-typescript";
+import { draw_details } from "./draw_details";
 @Table({
     timestamps : false,
     tableName : "draws"
@@ -14,17 +14,16 @@ export class draws extends Model {
     id! : string
 
     @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    name!: string
+
+    @Column({
         type: DataType.STRING
     })
     data! : string
 
-    @ForeignKey(()=> users)
-    @Column({
-        type: DataType.STRING,
-        allowNull: false
-    })
-    authorId! : string
-
-    @BelongsTo(()=> users)
-    user! : users
+    @HasMany(()=>draw_details)
+    author! : draw_details[]
 }

@@ -2,13 +2,6 @@ import socketIO, { Socket } from 'socket.io'
 import { decodeToken } from './util/decodeToken';
 import { DecodeToken as decodeType } from './util/decodeToken';
 import { redisClient } from "./redis";
-import * as redis from "redis";
-interface userInfo
-{
-  id: string,
-  username: string,
-  token : string
-}
 
 export class socket {
   private io: socketIO.Server;
@@ -20,7 +13,11 @@ export class socket {
             method: ['GET','POST']
         }
     });
+
+    //initial redis client
     (async() =>{this.RC = await new redisClient().getClient()})
+
+
     //process authentication in socket middleware
     this.io.use((socket ,next)=>{
       const token = socket.handshake.auth?.token
@@ -37,7 +34,6 @@ export class socket {
     
   }
 
-
   public getIO (){
     return this.io;
   }
@@ -52,16 +48,14 @@ export class socket {
       if(alreadyLogin !== socket.id && alreadyLogin || alreadyLogin === undefined  )
         socket.emit('already-login' )
       await this.RC.setValue(userInfo.id, socket.id)
-      console.log(`${userInfo.email} has connected`);
       
 
 
-      socket.on('disconnect', async() =>{
-        if(socket.id === alreadyLogin){
+
+      socket.once('disconnect', async() =>{
+        const valueHadBeenSet = await this.RC.getValue(userInfo.id)
+        if(socket.id === valueHadBeenSet)
           await this.RC.setValue(userInfo.id,'')
-          console.log(`user ${userInfo.email} has disconnect`);
-        }else
-          console.log(`${userInfo.email} already login in another device`);
       })
     });
   }

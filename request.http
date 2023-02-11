@@ -4,7 +4,7 @@ Content-Type : application/json
 {
     "email" : "dat@gmail.com",
     "username" : "dathdka",
-    "password" : "1234dat6789"
+    "password" : "123456"
 }
 
 ###
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 {
     "email" : "dat@gmail.com",
-    "password" : "1234dat6789"
+    "password" : "123456"
 }
 ###
 POST  http://localhost:1234/logout
@@ -22,3 +22,5 @@ Content-Type: application/json
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQyOGU4Y2M3LTc3OGYtNDNkNy05ODRhLTk5NmRhYmNjMjhiNCIsImVtYWlsIjoiZGF0QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiZGF0aGRrYSIsImlhdCI6MTY3NTU4NTg2MiwiZXhwIjoxNzA3MTIxODYyfQ.ZiqObKWAo9_hJ1_I65B5z5_i8I7pkeJZw_KQnOgidqk"
 }
+###
+GET http://localhost:1234/explore
