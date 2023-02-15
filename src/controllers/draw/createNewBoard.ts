@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import { EventEmitter } from "events";
 import { draws } from "../../models/draws";
-import { draw_details } from "../../models/draw_details";
+import { participants } from "../../models/participants";
 import { v4 } from "uuid";
 
 const storeAuthor = async ( authorId : string, drawId: string) =>{
-    await draw_details.create({
+    await participants.create({
         id : v4(),
         authorId : authorId,
         drawId : drawId

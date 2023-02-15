@@ -1,11 +1,11 @@
-import { Table, Model, Column, Length, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Table, Model, Column, Default, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { users } from "./users";
 import { draws } from "./draws";
 @Table({
     timestamps: false,
-    tableName : `draw_details`
+    tableName : `participants`
 })
-export class draw_details extends Model {
+export class participants extends Model {
 
     @Column({
         type: DataType.STRING,
@@ -13,6 +13,17 @@ export class draw_details extends Model {
         primaryKey: true
     })
     id!: string
+
+    @Default(false)
+    @Column({
+        type : DataType.BOOLEAN
+    })
+    pending? : boolean
+
+    @Column({
+        type : DataType.STRING
+    })
+    sender! : string 
 
     @ForeignKey(()=> users)
     @Column({
