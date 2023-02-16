@@ -9,10 +9,9 @@ export const invitation = async (data : socketHandle.dataInvitation)  =>{
         const findUserReceiveInvitation = await users.findOne({
             where : { email : data.emailReceiveInvitation}
         })
-        if(!findUserReceiveInvitation){
+        if(!findUserReceiveInvitation)
             return {error : true, message : `email not exsist`};         
-        }
-
+        
         //check if invitation all ready exsist
         const isInvitationAlreadyExsist = await participants.findOne({
             where : {
@@ -34,7 +33,8 @@ export const invitation = async (data : socketHandle.dataInvitation)  =>{
             id : v4(),
             pending : true,
             authorId : findUserReceiveInvitation.id,
-            drawId : data.drawId
+            drawId : data.drawId,
+            sender : data.sender
         })
 
         return {error : false, message: `invitation has been sent`, data : invitation}

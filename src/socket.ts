@@ -48,26 +48,48 @@ export class socket {
       if(alreadyLogin !== socket.id && alreadyLogin || alreadyLogin === undefined  )
         socket.emit('already-login' )
       await this.RC.setValue(userInfo.id, socket.id)
-      console.log(`user ${userInfo.email} has connected`)
+      console.log(`${userInfo.id} : ` + await this.RC.getValue(userInfo.id));
       
+      //!send invitation to other user
       socket.on('send-invitation', async (data : socketHandle.dataInvitation) =>{
+        data.sender = userInfo.email
         const result = await socketHandle.invitation(data)
         if(!result.error){
-          const idReceiveInvitation = result.data?.id || ''
+          const idReceiveInvitation = result.data?.authorId || ''
           const socketReceive = await this.RC.getValue(idReceiveInvitation) || ''
-          socket.to(socketReceive).emit('receive-invitation')
+          console.log(`${idReceiveInvitation} : ` +socketReceive)
+          
+          socket.to(socketReceive).emit('receive-invitation',result.data?.dataValues)
         }
+        socket.emit('notification',result.message)
       })
 
-      socket.on('invitation',async (data) =>{
-        const message = await socketHandle.invitation(data)
+      //!accept the invitation
+      socket.on('accept-invitation',async (data : socketHandle.dataAcceptInvitation) =>{
+        const result = await socketHandle.acceptInvitation(data)
+        socket.emit('notification', result.message)
       })
 
+      //!reject the invitation
+      socket.on('reject-invitation', async(data : socketHandle.dataAcceptInvitation)=>{
+        const result = await socketHandle.rejectInvitation(data)
+        socket.emit('notification', result.message)
+      })
+
+
+      socket.on('draw', async (data : socketHandle.dataDraw) =>{
+        data['sender'] = userInfo.id
+        await socketHandle.drawHandle(data)
+      })
 
       socket.once('disconnect', async() =>{
         const valueHadBeenSet = await this.RC.getValue(userInfo.id)
-        if(socket.id === valueHadBeenSet)
+        console.log(userInfo.email + ' has disconnect');
+        
+        if(socket.id === valueHadBeenSet){
+          console.log(`remove socket`);
           await this.RC.setValue(userInfo.id,'')
+        }
       })
     });
   }

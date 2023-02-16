@@ -23,7 +23,7 @@ export class participants extends Model {
     @Column({
         type : DataType.STRING
     })
-    sender! : string 
+    sender? : string 
 
     @ForeignKey(()=> users)
     @Column({
@@ -43,4 +43,5 @@ export class participants extends Model {
     user! : users
     @BelongsTo(()=>draws)
     draw! : draws
+    
 }

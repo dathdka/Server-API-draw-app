@@ -4,7 +4,6 @@ import { participants } from "../../models/participants";
 export const explore = async (req: Request, res: Response) =>{
     try {
         const {id} = req.body['decode'] || ''
-        console.log(`user id: ${id}`);
         const collection = await draws.findAll({ include:[{
             model: participants,
             where: { authorId: !id}

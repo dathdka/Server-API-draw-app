@@ -37,6 +37,7 @@
     "node-ts": "^5.1.2",
     "nodemon": "^2.0.20",
     "redis": "^4.6.4",
+    "redis-cli": "^2.1.2",
     "sequelize": "^6.28.0",
     "sequelize-typescript": "^2.1.5",
     "socket.io": "^4.5.4",
