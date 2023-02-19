@@ -12,9 +12,7 @@ export class redisClient {
       redisClient.client.on("error", (err) => {
         console.error(err);
       });
-      redisClient.client.on("connect", () => {
-        console.log(`redis client has been started`);
-      });
+      redisClient.client.on("connect", () => {});
       await redisClient.client.connect();
     }
     return new redisClient();

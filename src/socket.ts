@@ -41,7 +41,7 @@ export class socket {
   public handleConnection  (){
     this.io.on("connection", async (socket) => {
   
-      //if account already connect with socket socket then
+      //if account already connect with socket then
       // the account come after will be disconnect
       const userInfo : decodeType = socket.data.userDetails      
       const alreadyLogin = await this.RC.getValue(userInfo.id)
@@ -78,8 +78,16 @@ export class socket {
 
 
       socket.on('draw', async (data : socketHandle.dataDraw) =>{
-        data['sender'] = userInfo.id
-        await socketHandle.drawHandle(data)
+        data['senderId'] = userInfo.id
+        const result = await socketHandle.drawHandle(data)
+        //!send draw data object to everyone are author
+        if(!result.error){
+          result.data?.forEach(async el => {
+            const socketId = await this.RC.getValue(el) || ''
+            socket.to(socketId).emit('receive-draw-data',data)
+          })
+        }else
+          socket.emit('notification', result.message)
       })
 
       socket.once('disconnect', async() =>{

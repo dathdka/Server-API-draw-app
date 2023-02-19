@@ -13,18 +13,18 @@ app.use(express.json());
 app.use(cors({ origin: true }));
 app.use(router);
 const server = http.createServer(app);
-(async () => await new redisClient().getClient())();
 
 dbconfig
-  .sync()
-  .then(async () => {
-    console.log("DB synced successfully");
-    server.listen(`${process.env.EXPRESS_PORT}`, (): void => {
-      console.log(`server listening port ${process.env.EXPRESS_PORT}`);
-    });
-    const initIO = new socket(server);
-    initIO.handleConnection()    
-  })
-  .catch((err: Error) => {
-    throw err;
-  });
+.sync()
+.then(async () => {
+  server.listen(`${process.env.EXPRESS_PORT}`);
+  const initIO = new socket(server);
+  initIO.handleConnection()    
+})
+.catch((err: Error) => {
+  throw err;
+});
+console.log(`server started`);
+
+(async () => await new redisClient().getClient())();
+export default app;

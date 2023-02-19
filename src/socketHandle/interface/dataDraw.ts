@@ -1,4 +1,5 @@
 export interface dataDraw {
-    sender : string,
-    objectDraw : string
+    senderId? : string,
+    objectDraw : string,
+    drawId : string
 }
