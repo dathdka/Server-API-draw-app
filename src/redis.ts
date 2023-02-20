@@ -18,6 +18,10 @@ export class redisClient {
     return new redisClient();
   }
 
+  public getUrl (){
+      return redisClient.client.options?.url
+  }
+
   public async setValue(key: string, value: string) {
     await redisClient.client.set(key, value);
   }

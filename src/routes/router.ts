@@ -13,6 +13,7 @@ router.get('/logout',auth,authController.logout);
 //draw router
 router.get('/explore',auth,drawController.explore)
 router.post('/create-new-board',auth, drawController.createNewBoard)
+router.get('/get-my-collection',auth, drawController.getMyCollection)
 
 //participants router
 router.get('/get-invitation',auth, participantsController.getInvitation)

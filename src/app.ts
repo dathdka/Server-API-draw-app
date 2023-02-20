@@ -5,6 +5,7 @@ import dbconfig from "./dbConfig/config";
 import router from "./routes/router";
 import { redisClient } from "./redis";
 import { socket } from "./socket";
+import { storeNewAuthor } from "./jobQueue/storeNewAuthor";
 import "dotenv/config";
 
 var app = express();
@@ -20,11 +21,12 @@ dbconfig
   server.listen(`${process.env.EXPRESS_PORT}`);
   const initIO = new socket(server);
   initIO.handleConnection()    
+  await new redisClient().getClient()
+  new storeNewAuthor().getJobQueue();
 })
 .catch((err: Error) => {
   throw err;
 });
 console.log(`server started`);
 
-(async () => await new redisClient().getClient())();
 export default app;
