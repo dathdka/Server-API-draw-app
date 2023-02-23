@@ -1,4 +1,4 @@
-POST   http://localhost:1234/register
+POST   http://localhost:1234/auth/register
 Content-Type : application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type : application/json
 }
 
 ###
-POST  http://localhost:1234/login
+POST  http://localhost:1234/auth/login
 Content-Type: application/json
 
 {
@@ -16,15 +16,15 @@ Content-Type: application/json
     "password" : "123456"
 }
 ###
-POST  http://localhost:1234/logout
+POST  http://localhost:1234/auth/logout
 Content-Type: application/json
 
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQyOGU4Y2M3LTc3OGYtNDNkNy05ODRhLTk5NmRhYmNjMjhiNCIsImVtYWlsIjoiZGF0QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiZGF0aGRrYSIsImlhdCI6MTY3NTU4NTg2MiwiZXhwIjoxNzA3MTIxODYyfQ.ZiqObKWAo9_hJ1_I65B5z5_i8I7pkeJZw_KQnOgidqk"
 }
 ###
-GET http://localhost:1234/explore
+GET http://localhost:1234/draw/explore
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc4MTY2ZDY2LTY2Y2QtNDZhMS1hYWUzLWIyOGZkOTUyOGQzMSIsImVtYWlsIjoiZGF0QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiZGF0aGRrYSIsImlhdCI6MTY3Njg4NDA1OSwiZXhwIjoxNzA4NDIwMDU5fQ.XtAehLJt6dHWfX7WSCuyFl6a01lWXMpuF5_qMU3RW3Y
 ###
-GET http://localhost:1234/get-my-collection
+GET http://localhost:1234/draw/get-my-collection
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc4MTY2ZDY2LTY2Y2QtNDZhMS1hYWUzLWIyOGZkOTUyOGQzMSIsImVtYWlsIjoiZGF0QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiZGF0aGRrYSIsImlhdCI6MTY3Njg4NDA1OSwiZXhwIjoxNzA4NDIwMDU5fQ.XtAehLJt6dHWfX7WSCuyFl6a01lWXMpuF5_qMU3RW3Y

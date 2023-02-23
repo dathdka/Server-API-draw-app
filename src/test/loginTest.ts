@@ -30,7 +30,6 @@ const loginTest = (server: any, chai: Chai.ChaiStatic) => {
       chai
         .request(server)
         .post("/login")
-        // .auth('asd',{type : 'bearer'})
         .set("content-type", "application/json")
         .send(loginWrongPassword)
         .end((err, res) => {
